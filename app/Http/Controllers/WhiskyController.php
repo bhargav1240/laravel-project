@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\whiskiesImport;
 use App\Models\Whisky;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class WhiskyController extends Controller
 {
@@ -13,7 +15,10 @@ class WhiskyController extends Controller
     }
 
     public function postImpoerWhisky(Request $request){
-        //
+
+        Excel::import(new whiskiesImport, request()->file('file'));
+        
+        return redirect('/')->with('success', 'All good!');
     }
 
 
