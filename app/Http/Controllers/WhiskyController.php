@@ -31,9 +31,20 @@ class WhiskyController extends Controller
      */
     public function index()
     {
-        return Whisky::with(['brand'])->where([['size', '>', 650],['size', '<', 800],['price', '<', 1500]])->orderBy('price')->get();
+        $collection = Whisky::orderBy('size', 'desc')->get();
+        $data['sizes'] = $collection->groupBy('size');
+        $data['whiskies'] = Whisky::all();
+        return view('whisky', ['data' => $data]);
     }
 
+    public function filter(Request $request){
+        $collection = Whisky::orderBy('size', 'desc')->get();
+        $data['sizes'] = $collection->groupBy('size');
+        $data['whiskies'] = Whisky::with(['brand'])->where('size', '=', $request->size)->whereBetween('price', [$request->start_price, $request->end_price])->orderBy('price')->get();
+        return view('whisky', ['data' => $data]);
+    }
+
+    
     /**
      * Show the form for creating a new resource.
      *

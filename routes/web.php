@@ -22,3 +22,4 @@ Route::get('/import/whisky', [WhiskyController::class, 'getImportWhisky']);
 Route::post('/import/whisky', [WhiskyController::class, 'postImpoerWhisky']);
 
 Route::get('/whisky', [WhiskyController::class, 'index']);
+Route::post('/whisky', [WhiskyController::class, 'filter']);
