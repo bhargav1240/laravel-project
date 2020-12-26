@@ -17,8 +17,8 @@ class CreateWhiskiesTable extends Migration
             $table->id();
             $table->foreignId('brand_id')->nullable();
             $table->string('name');
-            $table->string('size')->nullable();
-            $table->string('price')->nullable();
+            $table->integer('size')->nullable();
+            $table->integer('price')->nullable();
             $table->timestamps();
         });
     }

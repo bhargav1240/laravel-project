@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Imports\whiskiesImport;
 use App\Models\Whisky;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -18,7 +20,7 @@ class WhiskyController extends Controller
 
         Excel::import(new whiskiesImport, request()->file('file'));
         
-        return redirect('/')->with('success', 'All good!');
+        return back()->with('success', 'All good!');
     }
 
 
@@ -29,7 +31,7 @@ class WhiskyController extends Controller
      */
     public function index()
     {
-        //
+        return Whisky::with(['brand'])->where([['size', '>', 650],['size', '<', 800],['price', '<', 1500]])->orderBy('price')->get();
     }
 
     /**

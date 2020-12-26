@@ -7,6 +7,9 @@
     <title>Document</title>
 </head>
 <body>
+    @if(!empty($success))
+        <div class="alert alert-success"> {{ $success }}</div>
+    @endif
     
     <form action="{{ url('/import/whisky') }}" method="post" enctype="multipart/form-data">
         @csrf
